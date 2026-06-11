@@ -5,10 +5,7 @@ const restartBtn = document.getElementById('restartBtn');
 
 const pvpBtn = document.getElementById('pvpBtn');
 const aiBtn = document.getElementById('aiBtn');
-const sideGroup = document.getElementById('sideGroup');
 const difficultyGroup = document.getElementById('difficultyGroup');
-const pickXBtn = document.getElementById('pickXBtn');
-const pickOBtn = document.getElementById('pickOBtn');
 const diffButtons = document.querySelectorAll('.diff-btn');
 
 const statX = document.getElementById('statX');
@@ -25,7 +22,6 @@ let currentPlayer = "X";
 let isGameActive = true;
 
 let isAiMode = false;
-let userSide = "X"; 
 let currentDifficulty = "normal"; 
 
 let scores = { X: 0, draws: 0, O: 0 };
@@ -41,7 +37,7 @@ const THEMES = {
     modern: { symbols: { X: "❌", O: "⭕" }, styles: { '--bg-gradient': 'linear-gradient(45deg, #0f172a, #1e1b4b, #311042, #0f172a)', '--card-color': 'rgba(15, 23, 42, 0.65)', '--cell-color': 'rgba(30, 41, 59, 0.5)', '--cell-hover': 'rgba(79, 70, 229, 0.4)', '--accent-x': '#38bdf8', '--accent-o': '#f43f5e', '--text-color': '#f8fafc', '--glow-color': '#6366f1', '--board-glow': '0 0 40px rgba(99, 102, 241, 0.4)', '--font-family': "'Segoe UI', system-ui, sans-serif", '--border-radius-global': '24px', '--cell-radius': '16px', '--board-border': '1px solid rgba(255, 255, 255, 0.05)', '--cell-border': '1px solid rgba(255, 255, 255, 0.05)', '--dropdown-bg': 'rgba(15, 23, 42, 0.95)' } },
     ocean: { symbols: { X: "⭐", O: "🐙" }, styles: { '--bg-gradient': 'linear-gradient(135deg, #03045e, #0077b6, #00b4d8, #03045e)', '--card-color': 'rgba(3, 4, 94, 0.7)', '--cell-color': 'rgba(0, 119, 182, 0.35)', '--cell-hover': 'rgba(0, 180, 216, 0.55)', '--accent-x': '#ffb703', '--accent-o': '#fb8500', '--text-color': '#caf0f8', '--glow-color': '#00b4d8', '--board-glow': '0 0 35px rgba(0, 180, 216, 0.5)', '--font-family': "'Segoe UI', sans-serif", '--border-radius-global': '24px', '--cell-radius': '16px', '--board-border': '1px solid rgba(255, 255, 255, 0.05)', '--cell-border': '1px solid rgba(255, 255, 255, 0.05)', '--dropdown-bg': 'rgba(3, 4, 94, 0.95)' } },
     fire: { symbols: { X: "🔥", O: "☄️" }, styles: { '--bg-gradient': 'linear-gradient(45deg, #370000, #6a040f, #dc2f02, #370000)', '--card-color': 'rgba(55, 0, 0, 0.75)', '--cell-color': 'rgba(106, 4, 15, 0.4)', '--cell-hover': 'rgba(220, 47, 2, 0.6)', '--accent-x': '#ffea00', '--accent-o': '#e85d04', '--text-color': '#fff3b0', '--glow-color': '#dc2f02', '--board-glow': '0 0 45px rgba(220, 47, 2, 0.6)', '--font-family': "'Segoe UI', sans-serif", '--border-radius-global': '24px', '--cell-radius': '16px', '--board-border': '1px solid rgba(255, 255, 255, 0.05)', '--cell-border': '1px solid rgba(255, 255, 255, 0.05)', '--dropdown-bg': 'rgba(55, 0, 0, 0.95)' } },
-    air: { symbols: { X: "⚡", O: "🌪️" }, styles: { '--bg-gradient': 'linear-gradient(135deg, #1e293b, #475569, #94a3b8, #1e293b)', '--card-color': 'rgba(30, 41, 59, 0.7)', '--cell-color': 'rgba(71, 85, 105, 0.35)', '--cell-hover': 'rgba(148, 163, 184, 0.55)', '--accent-x': '#fff200', '--accent-o': '#38bdf8', '--text-color': '#f8fafc', '--glow-color': '#cbd5e1', '--board-glow': '0 0 35px rgba(203, 213, 225, 0.4)', '--font-family': "'Segoe UI', sans-serif", '--border-radius-global': '24px', '--cell-radius': '16px', '--board-border': '1px solid rgba(255, 255, 255, 0.05)', '--cell-border': '1px solid rgba(255, 255, 255, 0.05)', '--dropdown-bg': 'rgba(30, 41, 59, 0.95)' } },
+    air: { symbols: { X: "⚡", O: "🌪️" }, styles: { '--bg-gradient': 'linear-gradient(135deg, #1e293b, #475569, #94a3b8, #1e293b)', '--card-color': 'rgba(30, 41, 59, 0.7)', '--cell-color': 'rgba(71, 85, 105, 0.35)', '--cell-hover': 'rgba(148, 163, 184, 0.55)', '--accent-x': '#fff200', '--accent-o': '#38bdf8', '--text-color': '#f8fafc', '--glow-color': '#cbd5se1', '--board-glow': '0 0 35px rgba(203, 213, 225, 0.4)', '--font-family': "'Segoe UI', sans-serif", '--border-radius-global': '24px', '--cell-radius': '16px', '--board-border': '1px solid rgba(255, 255, 255, 0.05)', '--cell-border': '1px solid rgba(255, 255, 255, 0.05)', '--dropdown-bg': 'rgba(30, 41, 59, 0.95)' } },
     earth: { symbols: { X: "🌳", O: "🪨" }, styles: { '--bg-gradient': 'linear-gradient(45deg, #14532d, #166534, #15803d, #14532d)', '--card-color': 'rgba(20, 83, 45, 0.75)', '--cell-color': 'rgba(22, 101, 52, 0.4)', '--cell-hover': 'rgba(21, 128, 61, 0.6)', '--accent-x': '#fde047', '--accent-o': '#f97316', '--text-color': '#f0fdf4', '--glow-color': '#22c55e', '--board-glow': '0 0 40px rgba(34, 197, 94, 0.5)', '--font-family': "'Segoe UI', sans-serif", '--border-radius-global': '24px', '--cell-radius': '16px', '--board-border': '1px solid rgba(255, 255, 255, 0.05)', '--cell-border': '1px solid rgba(255, 255, 255, 0.05)', '--dropdown-bg': 'rgba(20, 83, 45, 0.95)' } }
 };
 
@@ -85,21 +81,7 @@ function toggleModeLayout(aiActive) {
     isAiMode = aiActive;
     pvpBtn.classList.toggle('active', !aiActive);
     aiBtn.classList.toggle('active', aiActive);
-    
     difficultyGroup.style.display = aiActive ? 'flex' : 'none';
-    
-    resetMatchHistory();
-    restartGame();
-}
-
-pickXBtn.addEventListener('click', () => selectUserSide("X"));
-pickOBtn.addEventListener('click', () => selectUserSide("O"));
-
-function selectUserSide(side) {
-    if(userSide === side) return;
-    userSide = side;
-    pickXBtn.classList.toggle('active', side === "X");
-    pickOBtn.classList.toggle('active', side === "O");
     resetMatchHistory();
     restartGame();
 }
@@ -118,13 +100,12 @@ cells.forEach(cell => cell.addEventListener('click', handleCellClick));
 function handleCellClick(e) {
     const clickedCell = e.target;
     const index = parseInt(clickedCell.getAttribute('data-cell-index'));
-
     if (board[index] !== "" || !isGameActive) return;
-    if (isAiMode && currentPlayer !== userSide) return;
+    if (isAiMode && currentPlayer !== "X") return;
 
     makeMove(clickedCell, index);
 
-    if (isGameActive && isAiMode && currentPlayer !== userSide) {
+    if (isAiMode && isGameActive && currentPlayer !== "X") {
         boardElement.style.pointerEvents = 'none'; 
         setTimeout(executeAiStrategy, 400); 
     }
@@ -156,28 +137,25 @@ function makeMove(cell, index) {
 
 function executeAiStrategy() {
     if (!isGameActive) return;
-    const aiSide = userSide === "X" ? "O" : "X";
     let optimalIndex = -1;
 
     if (currentDifficulty === "easy") {
         optimalIndex = getRandomMove();
-    } 
-    else if (currentDifficulty === "normal") {
+    } else if (currentDifficulty === "normal") {
         if (Math.random() < 0.5) {
-            optimalIndex = findStrategicCell(aiSide) || findStrategicCell(userSide) || getRandomMove();
+            optimalIndex = findStrategicCell("O") || findStrategicCell("X") || getRandomMove();
         } else {
             optimalIndex = getRandomMove();
         }
-    } 
-    else if (currentDifficulty === "hard") {
-        optimalIndex = findStrategicCell(aiSide); 
-        if (optimalIndex === -1) optimalIndex = findStrategicCell(userSide); 
+    } else if (currentDifficulty === "hard") {
+        optimalIndex = findStrategicCell("O");
+        if (optimalIndex === -1) optimalIndex = findStrategicCell("X");
         if (optimalIndex === -1) {
             let bestScore = -Infinity;
             for (let i = 0; i < 9; i++) {
                 if (board[i] === "") {
-                    board[i] = aiSide;
-                    let score = minimax(board, 0, false, aiSide, userSide);
+                    board[i] = "O";
+                    let score = minimax(board, 0, false, "O", "X");
                     board[i] = "";
                     if (score > bestScore) {
                         bestScore = score;
@@ -187,7 +165,6 @@ function executeAiStrategy() {
             }
         }
     }
-
     const targetCell = document.querySelector(`[data-cell-index="${optimalIndex}"]`);
     boardElement.style.pointerEvents = 'auto'; 
     makeMove(targetCell, optimalIndex);
@@ -197,7 +174,6 @@ function minimax(tempBoard, depth, isMaximizing, aiPlayer, humanPlayer) {
     if (checkWinForPlayer(aiPlayer)) return 10 - depth;
     if (checkWinForPlayer(humanPlayer)) return depth - 10;
     if (tempBoard.every(cell => cell !== "")) return 0;
-
     if (isMaximizing) {
         let bestScore = -Infinity;
         for (let i = 0; i < 9; i++) {
@@ -238,7 +214,6 @@ function getRandomMove() {
     return emptyCells[Math.floor(Math.random() * emptyCells.length)];
 }
 
-/* GENERAL STATUS SYSTEM UTILITIES */
 function checkWin() { return WINNING_COMBINATIONS.some(combo => combo.every(idx => board[idx] === currentPlayer)); }
 function checkWinForPlayer(player) { return WINNING_COMBINATIONS.some(combo => combo.every(idx => board[idx] === player)); }
 
@@ -246,7 +221,7 @@ function updateStatusDisplay() {
     if (!isGameActive) return;
     const activeLabel = currentPlayer === "X" ? currentSymbols.X : currentSymbols.O;
     if(isAiMode) {
-        statusMessage.textContent = currentPlayer === userSide ? "Your Turn! ✨" : "AI is thinking... 🤖";
+        statusMessage.textContent = currentPlayer === "X" ? "Your Turn! ✨" : "AI is thinking... 🤖";
     } else {
         statusMessage.textContent = `Player ${activeLabel}'s turn`;
     }
@@ -273,9 +248,4 @@ function restartGame() {
     updateStatusDisplay();
     boardElement.style.pointerEvents = 'auto';
     cells.forEach(cell => { cell.textContent = ""; cell.className = "cell"; });
-
-    if (isAiMode && userSide === "O") {
-        boardElement.style.pointerEvents = 'none';
-        setTimeout(executeAiStrategy, 400);
-    }
 }
