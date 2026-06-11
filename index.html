@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe Kinetic Edition</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-wrapper">
+        <div class="control-panel">
+            <div class="header-group">
+                <h1 id="gameTitle">
+                    <span>T</span><span>i</span><span>c</span><span>-</span><span>T</span><span>a</span><span>c</span><span>-</span><span>T</span><span>o</span><span>e</span>
+                </h1>
+                
+                <div class="theme-container">
+                    <span class="theme-label">Theme:</span>
+                    <div class="custom-dropdown" id="themeDropdown">
+                        <div class="dropdown-trigger" id="dropdownTrigger">
+                            <span class="trigger-text">✨ Modern Minimal</span>
+                            <span class="trigger-arrow">▼</span>
+                        </div>
+                        <div class="dropdown-menu" id="dropdownMenu">
+                            <div class="dropdown-item active" data-value="modern">
+                                <span class="item-text"><span class="item-emoji">✨</span> Modern Minimal</span>
+                                <div class="item-preview"><span class="px">❌</span><span class="po">⭕</span></div>
+                            </div>
+                            <div class="dropdown-item" data-value="ocean">
+                                <span class="item-text"><span class="item-emoji">🌊</span> Ocean Deep</span>
+                                <div class="item-preview"><span class="px">⭐</span><span class="po">🐙</span></div>
+                            </div>
+                            <div class="dropdown-item" data-value="fire">
+                                <span class="item-text"><span class="item-emoji">🌋</span> Volcanic Fire</span>
+                                <div class="item-preview"><span class="px">🔥</span><span class="po">☄️</span></div>
+                            </div>
+                            <div class="dropdown-item" data-value="air">
+                                <span class="item-text"><span class="item-emoji">🌀</span> Zephyr Air</span>
+                                <div class="item-preview"><span class="px">⚡</span><span class="po">🌪️</span></div>
+                            </div>
+                            <div class="dropdown-item" data-value="earth">
+                                <span class="item-text"><span class="item-emoji">⛰️</span> Primal Earth</span>
+                                <div class="item-preview"><span class="px">🌳</span><span class="po">🪨</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="config-section">
+                <div class="config-group">
+                    <span class="config-label">Game Mode</span>
+                    <div class="mode-container">
+                        <button id="pvpBtn" class="mode-btn active">PvP</button>
+                        <button id="aiBtn" class="mode-btn">vs AI</button>
+                    </div>
+                </div>
+
+                <div class="config-group" id="sideGroup">
+                    <span class="config-label">Your Side</span>
+                    <div class="segmented-control">
+                        <button id="pickXBtn" class="segment-btn active">Play as X</button>
+                        <button id="pickOBtn" class="segment-btn">Play as O</button>
+                    </div>
+                </div>
+
+                <div class="config-group" id="difficultyGroup" style="display: none;">
+                    <span class="config-label">AI Difficulty</span>
+                    <div class="segmented-control diff-control">
+                        <button class="segment-btn diff-btn" data-diff="easy">Easy</button>
+                        <button class="segment-btn diff-btn active" data-diff="normal">Normal</button>
+                        <button class="segment-btn diff-btn" data-diff="hard">Hard</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="status" id="statusMessage">Player X's turn</div>
+
+            <div class="stats-card" id="statsDisplay">
+                <div class="stat-box">
+                    <span class="stat-label">X Wins</span>
+                    <span class="stat-count" id="statX">0</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Draws</span>
+                    <span class="stat-count" id="statDraws">0</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">O Wins</span>
+                    <span class="stat-count" id="statO">0</span>
+                </div>
+            </div>
+
+            <button id="restartBtn" class="restart-btn">Restart Game</button>
+        </div>
+
+        <div class="board-panel">
+            <div class="board" id="board">
+                <div class="cell" data-cell-index="0"></div>
+                <div class="cell" data-cell-index="1"></div>
+                <div class="cell" data-cell-index="2"></div>
+                <div class="cell" data-cell-index="3"></div>
+                <div class="cell" data-cell-index="4"></div>
+                <div class="cell" data-cell-index="5"></div>
+                <div class="cell" data-cell-index="6"></div>
+                <div class="cell" data-cell-index="7"></div>
+                <div class="cell" data-cell-index="8"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
